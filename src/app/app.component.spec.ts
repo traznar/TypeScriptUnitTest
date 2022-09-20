@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
-describe('AppComponent', () => {
+describe('Test AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveFormsModule,
+        FormsModule
       ],
       declarations: [
         AppComponent
@@ -26,10 +29,20 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('unitTestEspe');
   });
 
-  it('should render title', () => {
+ 
+
+  it('Formulario Correcto', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('unitTestEspe app is running!');
+    const app = fixture.componentInstance
+    fixture.detectChanges()
+
+    let correo = app.form.controls['correo']
+    let contraseña = app.form.controls['contraseña']
+    
+
+    correo.setValue('TEC@gmail.com')
+    
+
+    expect(app.form.invalid).toBeFalse();
   });
 });
